@@ -1,0 +1,44 @@
+---
+
+- name: "Réinitialisation du fichier de règles temporaire /etc/audit/auditd.rules.draft"
+  become_user: root
+  become: yes
+  copy:
+    dest: /etc/audit/auditd.rules.draft
+    content: ""
+    owner: root
+    group: root
+    mode: '0660'
+
+- name: "Initialisation des règles d'audit file: /etc/audit/auditd.rules.draft"
+  become_user: root
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/audit/auditd.rules.draft
+    line: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0660'
+    create: yes
+  with_items:
+    - "{{ lookup('file', 'files/auditd_rules_default').splitlines() }}"
+  when: item not in auditd_exclude
+
+- name: "Remplacement du fichier de configuration /etc/auditd.rules"
+  become_user: root
+  become: yes
+  copy:
+    src: /etc/audit/auditd.rules.draft
+    dest: /etc/audit/auditd.rules
+    owner: root
+    group: root
+    mode: '0660'
+    remote_src: yes
+
+- name: "Reload de la configuration auditd"
+  become_user: root
+  become: yes
+  shell: /usr/sbin/service auditd reload
+  args:
+    warn: false
+

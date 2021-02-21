@@ -1,0 +1,6 @@
+---
+# tasks file for manage_auditd
+
+- include_tasks: 'tasks_{{ ansible_os_family | lower }}_install_auditd.yml'
+  when: ansible_os_family == "RedHat" and ((( "install" in ansible_run_tags ) and ( "all" in ansible_run_tags )) or (( "install" in ansible_run_tags ) and ( "auditd" in ansible_run_tags )))
+

@@ -1,0 +1,15 @@
+---
+
+# ansible-playbook -i $(INVENTORY_DIR) --e "servers=pxedpm" -t "install,auditd,all" pbk_manage_auditd.yml --check
+# ansible-playbook -i ${INVENTORY_DIR) --e "servers=pxedpm" -t "install,auditd,all" pbk_manage_auditd.yml 
+
+- hosts: "{{ servers }}"
+  gather_facts: yes
+#  become: yes
+#  become_user: root
+
+  vars:
+    auditd_exclude: ""
+      
+  roles:
+    - { role: manage_auditd, tags: [auditd, all] }
