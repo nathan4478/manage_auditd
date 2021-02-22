@@ -1,38 +1,55 @@
-Role Name
-=========
+[[_TOC_]]
+***
 
-A brief description of the role goes here.
+# Nom
 
-Requirements
-------------
+    manage_auditd
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Description
 
-Role Variables
---------------
+    Déploiement du rpm auditd
+    Configuration /etc/audit/auditd.conf
+    Implémentation des règles de surveillance ( /etc/audit/auditd.rules )
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+## Prérequis ( librairies, rpm, files, … )
 
-Dependencies
-------------
+    Fichier de règles auditd. 
+    ex : https://github.com/bfuzzy/auditd-attack/blob/master/auditd-attack.rules
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Tags
 
-Example Playbook
-----------------
+    - all, install
+    - auditd, install
+    - auditd, config
+    
+## Variables
+    
+* Variables sécurisées nécessaires au déploiement de l'applicatif ( container vault )
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+* Variables nécessaires au déploiement de l'applicatif 
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+    # Fichier de règles à appliquer sur l'instance cible
+    auditd_rules_file: "auditd_default.rules"
 
-License
--------
+    # Exclusion des règles ( par defaut, elles sont toutes appliquées )
+    auditd_exclude_rules:
+      - "-w /etc/sudoers.d/ -p wa -k actions"
+```
 
-BSD
+## Dépendances ( Liste des urls des roles )
 
-Author Information
-------------------
+## Example Playbook
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+## Mode opératoire pour l'execution du Playbook
+
+### STEP1
+
+### STEP2
+
+### STEP3
+
+## commandes ansible
+
+## Auteur
+
