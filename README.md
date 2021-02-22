@@ -64,6 +64,19 @@
 ## Mode opératoire pour l'execution du Playbook
 
 ### STEP1
+```yaml
+  # Download fichier de règles auditd et le déposer dans le répertoire files du rôles
+  auditd_rules_file: "auditd_default.rules"
+  
+  # Initialisation des variables dans l'inventaire, applique le même fichier de règles sur l'ensemble de l'infra
+  inventories_< env >/group_vars/all/vars_auditd_rules.yml
+    # Variable 
+    auditd_rules_file: "auditd_default.rules"
+  
+  
+  
+```
+
 
 ### STEP2
 
